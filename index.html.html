@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDE 2 Prep — Master Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #2a2a3a;
+    --accent-green: #00ff88;
+    --accent-blue: #4d9fff;
+    --accent-purple: #b06cff;
+    --accent-orange: #ff8c42;
+    --accent-pink: #ff4d9d;
+    --accent-yellow: #ffd700;
+    --accent-cyan: #00e5ff;
+    --text: #e8e8f0;
+    --muted: #7a7a9a;
+    --tag-h: #ff6b6b;
+    --tag-m: #ffd93d;
+    --tag-e: #6bcb77;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #0a0a0f 0%, #0d0d1a 50%, #0a0a0f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(77,159,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(0,255,136,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-green);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 68px);
+    font-weight: 800;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #ffffff 30%, var(--accent-blue) 70%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+  .header-sub {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 600px;
+    font-weight: 300;
+  }
+  .targets {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .target-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 18px;
+    border-radius: 40px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .badge-google { background: rgba(66,133,244,0.15); border: 1px solid #4285f4; color: #4285f4; }
+  .badge-microsoft { background: rgba(0,120,212,0.15); border: 1px solid #00a4ef; color: #00a4ef; }
+  .badge-nvidia { background: rgba(118,185,0,0.15); border: 1px solid #76b900; color: #76b900; }
+  .badge-meta { background: rgba(0,133,255,0.15); border: 1px solid #0085ff; color: #0085ff; }
+
+  /* NAV */
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex; gap: 0; overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 18px 20px;
+    white-space: nowrap;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+  }
+  nav a:hover { color: var(--text); border-bottom-color: var(--accent-blue); }
+
+  /* MAIN LAYOUT */
+  main { max-width: 1200px; margin: 0 auto; padding: 48px 32px; }
+
+  /* SECTION */
+  .section { margin-bottom: 72px; }
+  .section-header {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 32px;
+  }
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent-green);
+    letter-spacing: 2px;
+    min-width: 40px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--border), transparent);
+  }
+
+  /* CARDS GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    main { padding: 32px 20px; }
+    nav { padding: 0 20px; }
+    header { padding: 40px 20px 36px; }
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover {
+    border-color: #3a3a55;
+    transform: translateY(-2px);
+  }
+  .card-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+  .card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    margin-top: 8px;
+    color: #fff;
+  }
+  .card p, .card li {
+    color: var(--muted);
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+  .card ul { list-style: none; }
+  .card ul li { padding: 3px 0; }
+  .card ul li::before {
+    content: '→ ';
+    color: var(--accent-green);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+  }
+
+  /* PROMPT BOX */
+  .prompt-box {
+    background: #0d0d1a;
+    border: 1px solid #2d2d4d;
+    border-left: 3px solid var(--accent-blue);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .prompt-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-blue);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .prompt-text {
+    font-family: 'Space Mono', monospace;
+    font-size: 12.5px;
+    color: #c8c8e8;
+    line-height: 1.85;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 16px; right: 16px;
+    background: rgba(77,159,255,0.15);
+    border: 1px solid var(--accent-blue);
+    color: var(--accent-blue);
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .copy-btn:hover { background: rgba(77,159,255,0.3); }
+  .copy-btn.copied { background: rgba(0,255,136,0.15); border-color: var(--accent-green); color: var(--accent-green); }
+
+  /* DSA COLOR MAP */
+  .dsa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .dsa-topic {
+    border-radius: 12px;
+    padding: 18px 20px;
+    border: 1px solid transparent;
+    transition: transform 0.2s;
+  }
+  .dsa-topic:hover { transform: translateY(-2px); }
+  .dsa-topic .topic-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .dsa-topic .topic-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+  .dsa-topic .diff-tag {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* COLOR THEMES */
+  .t-arrays { background: rgba(0,229,255,0.08); border-color: rgba(0,229,255,0.3); color: var(--accent-cyan); }
+  .t-strings { background: rgba(0,255,136,0.08); border-color: rgba(0,255,136,0.3); color: var(--accent-green); }
+  .t-ll { background: rgba(77,159,255,0.08); border-color: rgba(77,159,255,0.3); color: var(--accent-blue); }
+  .t-trees { background: rgba(176,108,255,0.08); border-color: rgba(176,108,255,0.3); color: var(--accent-purple); }
+  .t-graphs { background: rgba(255,77,157,0.08); border-color: rgba(255,77,157,0.3); color: var(--accent-pink); }
+  .t-dp { background: rgba(255,215,0,0.08); border-color: rgba(255,215,0,0.3); color: var(--accent-yellow); }
+  .t-stack { background: rgba(255,140,66,0.08); border-color: rgba(255,140,66,0.3); color: var(--accent-orange); }
+  .t-binary { background: rgba(107,203,119,0.08); border-color: rgba(107,203,119,0.3); color: #6bcb77; }
+  .t-heaps { background: rgba(255,106,106,0.08); border-color: rgba(255,106,106,0.3); color: var(--tag-h); }
+  .t-trie { background: rgba(255,211,61,0.08); border-color: rgba(255,211,61,0.3); color: var(--tag-m); }
+  .t-greedy { background: rgba(0,229,255,0.06); border-color: rgba(0,229,255,0.2); color: #5ecfdf; }
+  .t-bs { background: rgba(176,108,255,0.06); border-color: rgba(176,108,255,0.2); color: #c89aff; }
+
+  .diff-hard { background: rgba(255,106,106,0.2); color: var(--tag-h); }
+  .diff-med { background: rgba(255,211,61,0.2); color: var(--tag-m); }
+  .diff-easy { background: rgba(107,203,119,0.2); color: var(--tag-e); }
+
+  /* GITHUB STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex; gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .step-content p { color: var(--muted); font-size: 13.5px; }
+
+  /* CODE INLINE */
+  code {
+    font-family: 'Space Mono', monospace;
+    background: rgba(255,255,255,0.07);
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: var(--accent-cyan);
+  }
+
+  /* RESOURCE CARDS */
+  .resource-row { display: flex; flex-direction: column; gap: 10px; }
+  .resource-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: border-color 0.2s;
+  }
+  .resource-item:hover { border-color: #3a3a55; }
+  .res-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .resource-item h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 3px;
+  }
+  .resource-item p { color: var(--muted); font-size: 12.5px; }
+  .res-tag {
+    margin-top: 5px;
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    padding: 2px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-top: 8px;
+  }
+  @media (max-width: 768px) {
+    .timeline { grid-template-columns: repeat(3, 1fr); }
+  }
+  .phase {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 14px;
+    text-align: center;
+    position: relative;
+  }
+  .phase-week {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .phase-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+  .phase-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin: 0 auto;
+  }
+
+  /* NOTES SYSTEM */
+  .notes-template {
+    background: #0a0a14;
+    border: 1px solid #252535;
+    border-radius: 14px;
+    padding: 28px;
+  }
+  .notes-header {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .notes-row {
+    display: flex; gap: 10px;
+    margin-bottom: 10px; align-items: flex-start;
+  }
+  .notes-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--accent-green);
+    letter-spacing: 1px;
+    min-width: 90px;
+    padding-top: 2px;
+  }
+  .notes-val {
+    color: #9999bb;
+    font-size: 13px;
+    font-style: italic;
+  }
+  .color-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 6px;
+    margin: 4px 4px 4px 0;
+    font-size: 12px;
+    font-family: 'Space Mono', monospace;
+  }
+  .cp-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--border), transparent);
+    margin: 48px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+  footer span { color: var(--accent-green); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">// SDE 2 PREPARATION MASTER PLAN</div>
+  <h1>DSA → System Design<br>Zero to Offer</h1>
+  <p class="header-sub">Striver A–Z Sheet · GitHub Workflow · Color-Coded Notes · Full Resource Map</p>
+  <div class="targets">
+    <span class="target-badge badge-google">🎯 Google SDE 2</span>
+    <span class="target-badge badge-microsoft">🎯 Microsoft SDE 2</span>
+    <span class="target-badge badge-nvidia">🎯 NVIDIA</span>
+    <span class="target-badge badge-meta">🎯 Meta / Others</span>
+  </div>
+</header>
+
+<nav>
+  <a href="#prompt">Claude Prompt</a>
+  <a href="#dsa">DSA Map</a>
+  <a href="#github">GitHub Setup</a>
+  <a href="#notes">Notes System</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#resources">Resources</a>
+  <a href="#sysdesign">System Design</a>
+</nav>
+
+<main>
+
+  <!-- SECTION 1: MASTER CLAUDE PROMPT -->
+  <section class="section" id="prompt">
+    <div class="section-header">
+      <span class="section-num">01 —</span>
+      <h2 class="section-title">Master Claude Prompt</h2>
+      <div class="section-line"></div>
+    </div>
+    <p style="color:var(--muted); margin-bottom: 24px; font-size: 14px;">
+      Copy this prompt at the start of every new Claude session. It sets context so every explanation is tutor-quality and exam-focused.
+    </p>
+
+    <div class="prompt-box">
+      <div class="prompt-label">// MASTER SESSION PROMPT — PASTE AT START OF EVERY CHAT</div>
+      <button class="copy-btn" onclick="copyPrompt(this, 'master')">COPY</button>
+      <div class="prompt-text" id="master">You are my dedicated SDE 2 interview coach. I have a CSE background and am preparing for Google, Microsoft, NVIDIA, and similar top-tier companies. I am following the Striver A–Z DSA Sheet from scratch (zero to advanced), and I also want to cover System Design, OS, DBMS, Computer Networks, and OOP.
+
+For every topic or problem I bring to you:
+1. Explain the CONCEPT first with a real-world analogy
+2. Walk through the BRUTE FORCE → OPTIMIZED approach step by step
+3. Show clean, interview-ready CODE in Java (or C++ if I ask)
+4. Give TIME and SPACE complexity analysis
+5. List 3–5 SIMILAR PROBLEMS I should solve next
+6. Give me a SHORT "interview cheat line" — one sentence to explain my approach to an interviewer
+7. End with a GITHUB NOTE block I can paste directly into my repo's markdown file
+
+My GitHub repo structure is: dsa-journey/ with folders per topic (arrays/, linked-list/, trees/, etc.). Each folder has a README.md with problem notes and a solutions/ subfolder.
+
+Tone: like a senior engineer mentoring a junior — honest, no fluff, interview-focused. Flag if a problem is "Must-Know" for FAANG.</div>
+    </div>
+
+    <div class="prompt-box" style="border-left-color: var(--accent-purple);">
+      <div class="prompt-label" style="color: var(--accent-purple);">// TOPIC DEEP-DIVE PROMPT</div>
+      <button class="copy-btn" style="border-color: var(--accent-purple); color: var(--accent-purple);" onclick="copyPrompt(this, 'topic')">COPY</button>
+      <div class="prompt-text" id="topic">I am starting the [TOPIC NAME] section of Striver A–Z sheet. 
+Topic: [e.g., Dynamic Programming — 1D DP]
+
+Please give me:
+1. A CONCEPT MAP — all sub-patterns in this topic (numbered list)
+2. The MOST IMPORTANT 5 problems for Google/Microsoft interviews from this topic
+3. The KEY INSIGHT or "aha moment" that unlocks this topic
+4. Common MISTAKES candidates make in interviews for this topic
+5. A REVISION CHECKLIST I can add to my GitHub README for this topic
+
+After this, I'll give you problems one by one — be ready to tutor me.</div>
+    </div>
+
+    <div class="prompt-box" style="border-left-color: var(--accent-orange);">
+      <div class="prompt-label" style="color: var(--accent-orange);">// DAILY PRACTICE PROMPT</div>
+      <button class="copy-btn" style="border-color: var(--accent-orange); color: var(--accent-orange);" onclick="copyPrompt(this, 'daily')">COPY</button>
+      <div class="prompt-text" id="daily">Today's DSA session — [DATE]
+Current Striver Sheet position: [Step X.Y — Topic Name]
+
+I solved / attempted this problem: [PROBLEM NAME]
+My approach: [describe your thinking or paste your code]
+
+Please:
+1. Review my approach and code — give honest feedback
+2. If wrong/suboptimal, show me the optimal solution with explanation
+3. Give me the GitHub note block for today's commit
+4. Rate this problem: Easy / Medium / Hard for Google interviews
+5. Should I revisit this in 3 days? (spaced repetition flag)</div>
+    </div>
+
+    <div class="prompt-box" style="border-left-color: var(--accent-green);">
+      <div class="prompt-label" style="color: var(--accent-green);">// SYSTEM DESIGN SESSION PROMPT</div>
+      <button class="copy-btn" style="border-color: var(--accent-green); color: var(--accent-green);" onclick="copyPrompt(this, 'sysdesign')">COPY</button>
+      <div class="prompt-text" id="sysdesign">I am preparing System Design for SDE 2 interviews at Google, Microsoft, and NVIDIA.
+
+Today's topic: [e.g., Design a URL Shortener / Design Netflix / CAP Theorem]
+
+Please structure your answer as:
+1. CLARIFY requirements (functional + non-functional) — show me how to ask the right questions
+2. HIGH-LEVEL DESIGN — components, diagram description
+3. DEEP DIVE — the most important component (DB schema, API design, etc.)
+4. SCALE — how to handle 10x, 100x traffic
+5. TRADE-OFFS — what did we sacrifice and why
+6. NVIDIA-SPECIFIC angle — where does GPU/parallel computing fit if relevant
+
+Also give me a GitHub markdown template I can store in my system-design/ folder.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: DSA COLOR MAP -->
+  <section class="section" id="dsa">
+    <div class="section-header">
+      <span class="section-num">02 —</span>
+      <h2 class="section-title">DSA Color-Coded Topic Map</h2>
+      <div class="section-line"></div>
+    </div>
+    <p style="color:var(--muted); margin-bottom: 24px; font-size: 14px;">
+      Each color = a category. Use these exact colors in your GitHub README labels and revision notes. 🔴 Hard · 🟡 Medium · 🟢 Easy (for revision status).
+    </p>
+
+    <div class="dsa-grid">
+      <div class="dsa-topic t-arrays">
+        <div class="topic-name">📦 Arrays</div>
+        <div class="topic-count">~40 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-strings">
+        <div class="topic-name">🔤 Strings</div>
+        <div class="topic-count">~15 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-ll">
+        <div class="topic-name">🔗 Linked List</div>
+        <div class="topic-count">~15 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-stack">
+        <div class="topic-name">📚 Stack & Queue</div>
+        <div class="topic-count">~14 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-binary">
+        <div class="topic-name">🔍 Binary Search</div>
+        <div class="topic-count">~36 problems</div>
+        <span class="diff-tag diff-hard">HARD</span>
+      </div>
+      <div class="dsa-topic t-trees">
+        <div class="topic-name">🌳 Trees (BT + BST)</div>
+        <div class="topic-count">~46 problems</div>
+        <span class="diff-tag diff-hard">HARD</span>
+      </div>
+      <div class="dsa-topic t-heaps">
+        <div class="topic-name">⛰️ Heaps</div>
+        <div class="topic-count">~17 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-graphs">
+        <div class="topic-name">🕸️ Graphs</div>
+        <div class="topic-count">~54 problems</div>
+        <span class="diff-tag diff-hard">HARDEST</span>
+      </div>
+      <div class="dsa-topic t-dp">
+        <div class="topic-name">💡 Dynamic Programming</div>
+        <div class="topic-count">~56 problems</div>
+        <span class="diff-tag diff-hard">HARDEST</span>
+      </div>
+      <div class="dsa-topic t-trie">
+        <div class="topic-name">🌿 Tries</div>
+        <div class="topic-count">~7 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-greedy">
+        <div class="topic-name">🟩 Greedy</div>
+        <div class="topic-count">~16 problems</div>
+        <span class="diff-tag diff-med">MEDIUM</span>
+      </div>
+      <div class="dsa-topic t-bs">
+        <div class="topic-name">⚡ Bit Manipulation</div>
+        <div class="topic-count">~10 problems</div>
+        <span class="diff-tag diff-easy">EASY</span>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px;">
+      <div style="color: var(--muted); font-size: 13px; margin-bottom: 12px; font-family: 'Space Mono', monospace; letter-spacing: 1px;">// COLOR LEGEND FOR YOUR NOTES & GITHUB</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <span class="color-pill"><span class="cp-dot" style="background:#00e5ff"></span>Arrays/Strings</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#4d9fff"></span>Linked List</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#b06cff"></span>Trees/BST</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#ff4d9d"></span>Graphs</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#ffd700"></span>DP</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#ff8c42"></span>Stack/Queue</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#6bcb77"></span>Binary Search</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#ff6b6b"></span>Heaps</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#ffd93d"></span>Tries</span>
+        <span class="color-pill"><span class="cp-dot" style="background:#00ff88"></span>Greedy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: GITHUB SETUP -->
+  <section class="section" id="github">
+    <div class="section-header">
+      <span class="section-num">03 —</span>
+      <h2 class="section-title">GitHub Repository Setup</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom: 32px;">
+      <div class="card">
+        <div class="card-accent" style="background: linear-gradient(to right, var(--accent-green), var(--accent-blue));"></div>
+        <h3>📁 Repo Structure</h3>
+        <div style="font-family: 'Space Mono', monospace; font-size: 11.5px; color: #8888aa; line-height: 2;">
+          dsa-journey/<br>
+          ├── README.md <span style="color:var(--accent-green)">← Progress tracker</span><br>
+          ├── arrays/<br>
+          │&nbsp;&nbsp;&nbsp;├── README.md <span style="color:var(--accent-blue)">← Notes + patterns</span><br>
+          │&nbsp;&nbsp;&nbsp;└── solutions/<br>
+          │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;├── TwoSum.java<br>
+          │&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── MaxSubarray.java<br>
+          ├── linked-list/<br>
+          ├── trees/<br>
+          ├── graphs/<br>
+          ├── dynamic-programming/<br>
+          ├── system-design/<br>
+          │&nbsp;&nbsp;&nbsp;├── README.md<br>
+          │&nbsp;&nbsp;&nbsp;└── url-shortener.md<br>
+          └── revision-notes/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;└── weekly-review.md
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: linear-gradient(to right, var(--accent-purple), var(--accent-pink));"></div>
+        <h3>📝 Daily README Template</h3>
+        <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: #8888aa; line-height: 2;">
+          <span style="color:var(--accent-green)"># Problem: Two Sum</span><br>
+          <span style="color:var(--accent-blue)">**Date:**</span> 2025-01-15<br>
+          <span style="color:var(--accent-blue)">**Difficulty:**</span> 🟡 Medium<br>
+          <span style="color:var(--accent-blue)">**Status:**</span> ✅ Solved<br>
+          <span style="color:var(--accent-blue)">**Topic:**</span> Arrays · HashMap<br><br>
+          <span style="color:var(--accent-orange)">## Approach</span><br>
+          Use HashMap for O(n) lookup...<br><br>
+          <span style="color:var(--accent-orange)">## Complexity</span><br>
+          Time: O(n) · Space: O(n)<br><br>
+          <span style="color:var(--accent-orange)">## Interview Line</span><br>
+          "I use a hashmap to store..."<br><br>
+          <span style="color:var(--accent-orange)">## Revisit?</span> 📅 3 days
+        </div>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num" style="background: rgba(0,255,136,0.15); color: var(--accent-green); border: 1px solid var(--accent-green);">1</div>
+        <div class="step-content">
+          <h4>Create & Initialize the Repo</h4>
+          <p>Go to GitHub → New Repository → name it <code>dsa-journey</code>. Add a description: "Striver A–Z + System Design prep for FAANG SDE 2". Initialize with README. Clone locally: <code>git clone https://github.com/YOUR_USER/dsa-journey</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background: rgba(77,159,255,0.15); color: var(--accent-blue); border: 1px solid var(--accent-blue);">2</div>
+        <div class="step-content">
+          <h4>Create Folder Structure (one time)</h4>
+          <p>Run: <code>mkdir arrays linked-list trees graphs dp stack-queue binary-search heaps tries greedy system-design revision-notes</code> — then add a blank README.md in each. Push this skeleton as your first commit: <code>git add . && git commit -m "init: repo skeleton" && git push</code></p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background: rgba(176,108,255,0.15); color: var(--accent-purple); border: 1px solid var(--accent-purple);">3</div>
+        <div class="step-content">
+          <h4>Daily Commit Workflow</h4>
+          <p>After each problem: create a <code>.java</code> file in the correct folder → add Claude's note block to the topic README → commit with a meaningful message like: <code>feat(arrays): Two Sum - HashMap O(n) approach</code> → push. This builds your green contribution graph and interview evidence.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background: rgba(255,140,66,0.15); color: var(--accent-orange); border: 1px solid var(--accent-orange);">4</div>
+        <div class="step-content">
+          <h4>GitHub Issues as a Revision Tracker</h4>
+          <p>For every problem you need to revisit: create a GitHub Issue titled "Revisit: [Problem Name]" with labels <code>revisit-3d</code>, <code>revisit-7d</code>, or <code>must-master</code>. Close the issue when you solve it confidently. This is free spaced repetition tracking.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background: rgba(255,77,157,0.15); color: var(--accent-pink); border: 1px solid var(--accent-pink);">5</div>
+        <div class="step-content">
+          <h4>GitHub Projects Board (Kanban)</h4>
+          <p>Create a Project board with columns: <code>To Do</code> → <code>In Progress</code> → <code>Solved Once</code> → <code>Confident</code>. Add all Striver sheet problems as cards. Move them as you progress — this is your visual progress tracker at a glance.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background: rgba(255,215,0,0.15); color: var(--accent-yellow); border: 1px solid var(--accent-yellow);">6</div>
+        <div class="step-content">
+          <h4>Weekly Review Commit (Sunday ritual)</h4>
+          <p>Every Sunday: update <code>revision-notes/weekly-review.md</code> — what you solved, what patterns clicked, what you're weak at. Commit this as <code>chore: week-N review</code>. Over months, this becomes a powerful personal interview prep diary.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: NOTES COLOR SYSTEM -->
+  <section class="section" id="notes">
+    <div class="section-header">
+      <span class="section-num">04 —</span>
+      <h2 class="section-title">Color-Coded Notes System</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <p style="color:var(--muted); font-size: 13.5px; margin-bottom: 20px;">Use this system in your physical notebook, Notion, or Obsidian. Every problem note follows the same format and color.</p>
+        <div class="notes-template">
+          <div class="notes-header">// PROBLEM NOTE TEMPLATE</div>
+          <div class="notes-row"><span class="notes-label">PROBLEM</span><span class="notes-val">Problem Name + LeetCode number</span></div>
+          <div class="notes-row"><span class="notes-label">DATE</span><span class="notes-val">DD-MM-YYYY</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--tag-h);">DIFFICULTY</span><span class="notes-val">🔴 Hard / 🟡 Med / 🟢 Easy</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--accent-cyan);">PATTERN</span><span class="notes-val">Two Pointer / Sliding Window / etc.</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--accent-blue);">INTUITION</span><span class="notes-val">Why does this approach work?</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--accent-purple);">BRUTE</span><span class="notes-val">Naive approach + complexity</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--accent-green);">OPTIMAL</span><span class="notes-val">Best approach + complexity</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--accent-orange);">INTERVIEW</span><span class="notes-val">"I will use X because Y in O(Z) time"</span></div>
+          <div class="notes-row"><span class="notes-label" style="color: var(--accent-yellow);">REVISIT</span><span class="notes-val">Date to review again</span></div>
+        </div>
+      </div>
+      <div>
+        <p style="color:var(--muted); font-size: 13.5px; margin-bottom: 20px;">Highlighter colors for physical notebook or Notion callout blocks:</p>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="background: rgba(0,255,136,0.1); border-left: 3px solid var(--accent-green); padding: 12px 16px; border-radius: 8px;">
+            <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent-green); margin-bottom: 4px;">🟩 GREEN — KEY INSIGHT</div>
+            <div style="font-size: 13px; color: var(--muted);">The one realization that solves the problem. Write it in big bold text.</div>
+          </div>
+          <div style="background: rgba(255,215,0,0.1); border-left: 3px solid var(--accent-yellow); padding: 12px 16px; border-radius: 8px;">
+            <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent-yellow); margin-bottom: 4px;">🟨 YELLOW — PATTERN NAME</div>
+            <div style="font-size: 13px; color: var(--muted);">Sliding Window, DP on Trees, Dijkstra variant, etc.</div>
+          </div>
+          <div style="background: rgba(255,106,106,0.1); border-left: 3px solid var(--tag-h); padding: 12px 16px; border-radius: 8px;">
+            <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--tag-h); margin-bottom: 4px;">🔴 RED — EDGE CASES</div>
+            <div style="font-size: 13px; color: var(--muted);">Empty array, single element, overflow, negative numbers. These lose you interviews.</div>
+          </div>
+          <div style="background: rgba(77,159,255,0.1); border-left: 3px solid var(--accent-blue); padding: 12px 16px; border-radius: 8px;">
+            <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent-blue); margin-bottom: 4px;">🔵 BLUE — CODE TEMPLATE</div>
+            <div style="font-size: 13px; color: var(--muted);">The reusable code skeleton for this pattern. Copy-paste start for new problems.</div>
+          </div>
+          <div style="background: rgba(176,108,255,0.1); border-left: 3px solid var(--accent-purple); padding: 12px 16px; border-radius: 8px;">
+            <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent-purple); margin-bottom: 4px;">🟣 PURPLE — COMPLEXITY</div>
+            <div style="font-size: 13px; color: var(--muted);">Time + Space. Always write this — it's the first thing interviewers ask.</div>
+          </div>
+          <div style="background: rgba(255,140,66,0.1); border-left: 3px solid var(--accent-orange); padding: 12px 16px; border-radius: 8px;">
+            <div style="font-family: 'Space Mono', monospace; font-size: 11px; color: var(--accent-orange); margin-bottom: 4px;">🟠 ORANGE — INTERVIEW LINE</div>
+            <div style="font-size: 13px; color: var(--muted);">One sentence verbal explanation. Practice saying this out loud.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: TIMELINE -->
+  <section class="section" id="timeline">
+    <div class="section-header">
+      <span class="section-num">05 —</span>
+      <h2 class="section-title">6-Month Roadmap</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="timeline">
+      <div class="phase">
+        <div class="phase-week">MONTH 1</div>
+        <div class="phase-name">Foundation</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 10px;">Arrays · Strings · Math · Recursion</div>
+        <div class="phase-dot" style="background: var(--accent-green);"></div>
+      </div>
+      <div class="phase">
+        <div class="phase-week">MONTH 2</div>
+        <div class="phase-name">Linear DS</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 10px;">Linked List · Stack · Queue · Hashing</div>
+        <div class="phase-dot" style="background: var(--accent-blue);"></div>
+      </div>
+      <div class="phase">
+        <div class="phase-week">MONTH 3</div>
+        <div class="phase-name">Non-Linear</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 10px;">Trees · BST · Heaps · Binary Search</div>
+        <div class="phase-dot" style="background: var(--accent-purple);"></div>
+      </div>
+      <div class="phase">
+        <div class="phase-week">MONTH 4</div>
+        <div class="phase-name">Advanced</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 10px;">Graphs · Tries · Greedy · Backtracking</div>
+        <div class="phase-dot" style="background: var(--accent-pink);"></div>
+      </div>
+      <div class="phase">
+        <div class="phase-week">MONTH 5</div>
+        <div class="phase-name">DP + Design</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 10px;">Dynamic Programming · System Design basics</div>
+        <div class="phase-dot" style="background: var(--accent-yellow);"></div>
+      </div>
+      <div class="phase">
+        <div class="phase-week">MONTH 6</div>
+        <div class="phase-name">Mock Mode</div>
+        <div style="font-size: 11px; color: var(--muted); margin-bottom: 10px;">Mock interviews · Revision · CS Fundamentals</div>
+        <div class="phase-dot" style="background: var(--accent-orange);"></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 24px;">
+      <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-bottom: 16px;">// DAILY TARGET (SUSTAINABLE)</div>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+        <div style="flex: 1; min-width: 160px; background: rgba(0,255,136,0.07); border: 1px solid rgba(0,255,136,0.2); border-radius: 10px; padding: 14px; text-align: center;">
+          <div style="font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent-green);">2–3</div>
+          <div style="font-size: 12px; color: var(--muted);">DSA problems / day</div>
+        </div>
+        <div style="flex: 1; min-width: 160px; background: rgba(77,159,255,0.07); border: 1px solid rgba(77,159,255,0.2); border-radius: 10px; padding: 14px; text-align: center;">
+          <div style="font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent-blue);">1</div>
+          <div style="font-size: 12px; color: var(--muted);">GitHub commit / day</div>
+        </div>
+        <div style="flex: 1; min-width: 160px; background: rgba(176,108,255,0.07); border: 1px solid rgba(176,108,255,0.2); border-radius: 10px; padding: 14px; text-align: center;">
+          <div style="font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent-purple);">1</div>
+          <div style="font-size: 12px; color: var(--muted);">System Design / week</div>
+        </div>
+        <div style="flex: 1; min-width: 160px; background: rgba(255,215,0,0.07); border: 1px solid rgba(255,215,0,0.2); border-radius: 10px; padding: 14px; text-align: center;">
+          <div style="font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent-yellow);">1</div>
+          <div style="font-size: 12px; color: var(--muted);">Mock interview / week (Month 4+)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: RESOURCES -->
+  <section class="section" id="resources">
+    <div class="section-header">
+      <span class="section-num">06 —</span>
+      <h2 class="section-title">Resource Map by Company & Topic</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-green); letter-spacing: 2px; margin-bottom: 16px;">// DSA — PRIMARY</div>
+        <div class="resource-row">
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(255,140,66,0.15);">🔥</div>
+            <div><h4>Striver A–Z DSA Sheet</h4><p>takeUforward.io — Your primary roadmap. 450+ problems, perfectly ordered. Follow it religiously.</p><span class="res-tag" style="background: rgba(0,255,136,0.15); color: var(--accent-green);">START HERE</span></div>
+          </div>
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(255,215,0,0.15);">⭐</div>
+            <div><h4>LeetCode</h4><p>Solve all problems from Striver sheet on LeetCode. Use "company tags" to filter Google/Microsoft-tagged problems.</p><span class="res-tag" style="background: rgba(77,159,255,0.15); color: var(--accent-blue);">DAILY PRACTICE</span></div>
+          </div>
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(176,108,255,0.15);">📺</div>
+            <div><h4>Striver YouTube (takeUforward)</h4><p>Watch his video BEFORE attempting the problem. His explanations are the clearest for FAANG prep.</p><span class="res-tag" style="background: rgba(176,108,255,0.15); color: var(--accent-purple);">VIDEO</span></div>
+          </div>
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(0,229,255,0.15);">📘</div>
+            <div><h4>NeetCode 150</h4><p>After finishing Striver, do NeetCode 150 for pattern reinforcement. His site has a free roadmap too.</p><span class="res-tag" style="background: rgba(0,229,255,0.15); color: var(--accent-cyan);">REVISION</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-blue); letter-spacing: 2px; margin-bottom: 16px;">// SYSTEM DESIGN</div>
+        <div class="resource-row">
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(255,106,106,0.15);">📗</div>
+            <div><h4>Designing Data-Intensive Apps</h4><p>By Martin Kleppmann — The Bible of System Design. Read chapters on replication, partitioning, consistency.</p><span class="res-tag" style="background: rgba(255,106,106,0.15); color: var(--tag-h);">MUST READ</span></div>
+          </div>
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(0,255,136,0.15);">🏗️</div>
+            <div><h4>ByteByteGo (Alex Xu)</h4><p>"System Design Interview" Vol 1 & 2 + newsletter. The go-to resource for interview-level system design.</p><span class="res-tag" style="background: rgba(0,255,136,0.15); color: var(--accent-green);">TOP PICK</span></div>
+          </div>
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(77,159,255,0.15);">📺</div>
+            <div><h4>Gaurav Sen (YouTube)</h4><p>Best free System Design series on YouTube. Covers LLD, HLD, real systems like Uber, Netflix, WhatsApp.</p><span class="res-tag" style="background: rgba(77,159,255,0.15); color: var(--accent-blue);">FREE</span></div>
+          </div>
+          <div class="resource-item">
+            <div class="res-icon" style="background: rgba(176,108,255,0.15);">🌐</div>
+            <div><h4>system-design-primer (GitHub)</h4><p>Massive open-source repo covering every system design concept. Bookmark and use as reference.</p><span class="res-tag" style="background: rgba(176,108,255,0.15); color: var(--accent-purple);">REFERENCE</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-orange); letter-spacing: 2px; margin-bottom: 16px;">// CS FUNDAMENTALS (OS · DBMS · CN · OOP)</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-bottom: 32px;">
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-cyan);"></div>
+        <h3>Operating Systems</h3>
+        <ul>
+          <li>Gate Smashers (YouTube) — Hindi, very clear</li>
+          <li>Operating System Concepts (Silberschatz)</li>
+          <li>InterviewBit OS questions</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-yellow);"></div>
+        <h3>DBMS & SQL</h3>
+        <ul>
+          <li>Gate Smashers DBMS playlist</li>
+          <li>LeetCode SQL 50 (free problem set)</li>
+          <li>Mode Analytics SQL tutorial (free)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-pink);"></div>
+        <h3>Computer Networks</h3>
+        <ul>
+          <li>Gate Smashers CN playlist</li>
+          <li>"How does the internet work?" — roadmap.sh</li>
+          <li>Julia Evans zines (free, visual)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-purple);"></div>
+        <h3>OOP & LLD</h3>
+        <ul>
+          <li>Udit Agarwal (YouTube) — LLD playlist</li>
+          <li>refactoring.guru — Design Patterns</li>
+          <li>Striver LLD sheet (takeUforward)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="font-family: 'Space Mono', monospace; font-size: 10px; color: var(--accent-purple); letter-spacing: 2px; margin-bottom: 16px;">// COMPANY-SPECIFIC</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px;">
+      <div class="card">
+        <div class="card-accent" style="background: #4285f4;"></div>
+        <h3 style="color: #4285f4;">Google</h3>
+        <ul>
+          <li>LeetCode Google tag (last 6mo)</li>
+          <li>Focus: Arrays, DP, Graphs, Trees</li>
+          <li>"Cracking the Coding Interview" Ch 1–6</li>
+          <li>Google's tech dev guide (free)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: #00a4ef;"></div>
+        <h3 style="color: #00a4ef;">Microsoft</h3>
+        <ul>
+          <li>LeetCode Microsoft tag</li>
+          <li>Focus: Trees, OOP, LLD, Puzzles</li>
+          <li>Microsoft's interview prep guide (GitHub)</li>
+          <li>Behavioral: STAR format, growth mindset</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: #76b900;"></div>
+        <h3 style="color: #76b900;">NVIDIA</h3>
+        <ul>
+          <li>LeetCode NVIDIA tag</li>
+          <li>Focus: Parallel computing, CUDA basics</li>
+          <li>Bit manipulation + math-heavy problems</li>
+          <li>CS architecture knowledge (caches, memory)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: #0085ff;"></div>
+        <h3 style="color: #0085ff;">Meta / Others</h3>
+        <ul>
+          <li>LeetCode Meta tag</li>
+          <li>Focus: Arrays, Graphs, Recursion</li>
+          <li>Behavioral: Meta's core values alignment</li>
+          <li>Mock on Pramp.com (free peer mocks)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: SYSTEM DESIGN TOPICS -->
+  <section class="section" id="sysdesign">
+    <div class="section-header">
+      <span class="section-num">07 —</span>
+      <h2 class="section-title">System Design Checklist</h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-blue);"></div>
+        <h3>Concepts to Master</h3>
+        <ul>
+          <li>CAP Theorem + trade-offs</li>
+          <li>Horizontal vs Vertical scaling</li>
+          <li>Load balancers (L4 vs L7)</li>
+          <li>CDN and caching strategies</li>
+          <li>SQL vs NoSQL — when to use</li>
+          <li>Message queues (Kafka, RabbitMQ)</li>
+          <li>Consistent hashing</li>
+          <li>Rate limiting algorithms</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-purple);"></div>
+        <h3>Must-Design Systems</h3>
+        <ul>
+          <li>URL Shortener (start here)</li>
+          <li>Twitter/X Feed</li>
+          <li>Netflix / YouTube</li>
+          <li>Uber / Ride-sharing</li>
+          <li>WhatsApp Messaging</li>
+          <li>Google Drive / Dropbox</li>
+          <li>Search Autocomplete</li>
+          <li>Distributed Cache (Redis)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-accent" style="background: var(--accent-green);"></div>
+        <h3>Interview Framework</h3>
+        <ul>
+          <li>1. Clarify requirements (5 min)</li>
+          <li>2. Estimate scale (back of envelope)</li>
+          <li>3. High-level diagram (10 min)</li>
+          <li>4. Deep dive 1–2 components (15 min)</li>
+          <li>5. Discuss trade-offs (5 min)</li>
+          <li>6. Bottlenecks + improvements</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>// YOUR JOURNEY STARTS TODAY</span> · Commit daily · Trust the process · SDE 2 is waiting
+</footer>
+
+<script>
+function copyPrompt(btn, id) {
+  const text = document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'COPIED ✓';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'COPY';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
