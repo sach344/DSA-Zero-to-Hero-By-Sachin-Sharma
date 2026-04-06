@@ -1,22 +1,34 @@
 // COPY BUTTON
 function copyText() {
-  const text = "SDE Journey by Sachin Sharma";
-  
-  navigator.clipboard.writeText(text).then(() => {
-    alert("Copied!");
-  });
+  navigator.clipboard.writeText("Sachin Sharma | DSA Dashboard 🚀");
+  alert("Copied!");
 }
 
-// FETCH LOCAL DATA (DSA progress)
+// COUNTER ANIMATION
+function animate(id, value) {
+  let count = 0;
+  let interval = setInterval(() => {
+    count++;
+    document.getElementById(id).innerText = count;
+    if (count >= value) clearInterval(interval);
+  }, 40);
+}
+
+// FETCH LOCAL DATA
 fetch("data/progress.json")
   .then(res => res.json())
   .then(data => {
-    document.getElementById("arrays-count").innerText = data.arrays;
-    document.getElementById("trees-count").innerText = data.trees;
-    document.getElementById("graphs-count").innerText = data.graphs;
+
+    animate("arrays-count", data.arrays);
+    animate("trees-count", data.trees);
+    animate("graphs-count", data.graphs);
+
+    document.getElementById("arrays-bar").style.width = data.arrays * 2 + "%";
+    document.getElementById("trees-bar").style.width = data.trees * 2 + "%";
+    document.getElementById("graphs-bar").style.width = data.graphs * 2 + "%";
   });
 
-// FETCH GITHUB DATA
+// GITHUB API
 fetch("https://api.github.com/users/sach344")
   .then(res => res.json())
   .then(data => {

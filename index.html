@@ -3,40 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SDE 2 Prep — Master Plan</title>
+<title>Sachin Sharma | DSA Dashboard</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=DM+Sans&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
 <header>
-  <h1>DSA → System Design</h1>
-  <p>Zero to Offer</p>
+  <h1>🚀 Sachin Sharma</h1>
+  <p>DSA → System Design → FAANG</p>
 </header>
 
-<main>
+<section class="stats">
 
-<h2>📊 Your Progress</h2>
+  <div class="card">
+    <h3>📦 Arrays</h3>
+    <div class="counter" id="arrays-count">0</div>
+    <div class="bar"><div id="arrays-bar"></div></div>
+  </div>
 
-<div>
-  Arrays: <span id="arrays-count">0</span><br>
-  Trees: <span id="trees-count">0</span><br>
-  Graphs: <span id="graphs-count">0</span><br>
-</div>
+  <div class="card">
+    <h3>🌳 Trees</h3>
+    <div class="counter" id="trees-count">0</div>
+    <div class="bar"><div id="trees-bar"></div></div>
+  </div>
 
-<br>
+  <div class="card">
+    <h3>🕸 Graphs</h3>
+    <div class="counter" id="graphs-count">0</div>
+    <div class="bar"><div id="graphs-bar"></div></div>
+  </div>
 
-<div>
-  GitHub Repos: <span id="repoCount">Loading...</span>
-</div>
+</section>
 
-<br>
+<section class="github">
+  ⭐ GitHub Repos: <span id="repoCount">Loading...</span>
+</section>
 
-<button onclick="copyText()">Copy Message</button>
+<section class="actions">
+  <button onclick="copyText()">Copy Portfolio Info</button>
+</section>
 
-</main>
+<footer>
+  Built by Sachin Sharma ⚡ | FAANG Preparation Journey
+</footer>
 
 <script src="js/script.js"></script>
 </body>
