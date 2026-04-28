@@ -1,0 +1,4 @@
+[
+  {"module":"GK","type":"question","category":"Awards","title":"Bharat Ratna 2024 winner","body":"<p>Sample GK question and note.</p>","tags":["gk","awards"]},
+  {"module":"DSA","type":"question","folder":"Arrays","title":"Two Sum","questionLink":"https://leetcode.com/problems/two-sum/","videoLink":"https://youtube.com","body":"<p>Use hashmap in O(n).</p>","tags":["array","hashmap"]}
+]
