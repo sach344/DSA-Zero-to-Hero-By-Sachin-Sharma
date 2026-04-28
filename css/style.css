@@ -2,101 +2,73 @@ body {
   margin: 0;
   font-family: 'DM Sans', sans-serif;
   background: linear-gradient(135deg, #0a0a0f, #111122);
-  color: white;
+  color: #f4f4f4;
 }
 
-/* HEADER */
 header {
   text-align: center;
-  padding: 50px;
+  padding: 28px 12px;
 }
 
-header h1 {
+h1 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 40px;
   color: #00e5ff;
 }
 
-header p {
-  color: #aaa;
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px 32px;
+  display: grid;
+  gap: 16px;
 }
 
-/* GRID */
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  padding: 20px;
+.panel {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 16px;
 }
 
-/* CARD */
-.card {
-  width: 250px;
-  padding: 20px;
-  border-radius: 20px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  transition: 0.3s;
-  text-align: center;
+.form-grid {
+  display: grid;
+  gap: 10px;
 }
 
-.card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 20px #00e5ff;
+input, select, textarea, button {
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font: inherit;
 }
 
-/* COUNTER */
-.counter {
-  font-size: 35px;
-  margin: 10px 0;
-  color: #00ff88;
-}
-
-/* BAR */
-.bar {
-  height: 6px;
-  background: #222;
-  border-radius: 10px;
-}
-
-.bar div {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #00e5ff, #00ff88);
-  border-radius: 10px;
-  transition: 1s;
-}
-
-/* GITHUB */
-.github {
-  text-align: center;
-  margin-top: 20px;
-  font-size: 20px;
-}
-
-/* BUTTON */
-.actions {
-  text-align: center;
-  margin-top: 20px;
+textarea {
+  min-height: 80px;
 }
 
 button {
-  padding: 12px 25px;
   background: #00e5ff;
-  border: none;
-  border-radius: 8px;
-  color: black;
-  font-weight: bold;
+  color: #000;
+  font-weight: 600;
   cursor: pointer;
 }
 
-button:hover {
-  background: #00ff88;
+.stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  margin-top: 40px;
-  color: #777;
+.chip {
+  background: #1f2a44;
+  padding: 6px 10px;
+  border-radius: 999px;
 }
+
+.list-item {
+  padding: 10px;
+  border-bottom: 1px solid #2e3557;
+}
+
+a { color: #7ee6ff; }
+footer { text-align:center; color:#9aa; padding: 20px 12px 30px; }

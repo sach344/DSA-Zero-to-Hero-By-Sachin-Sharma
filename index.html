@@ -3,51 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sachin Sharma | DSA Dashboard</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=DM+Sans&display=swap" rel="stylesheet">
+<title>DSA Tracker + Notes Vault</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=DM+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-
 <header>
-  <h1>🚀 Sachin Sharma</h1>
-  <p>DSA → System Design → FAANG</p>
+  <h1>🚀 DSA Daily Tracker</h1>
+  <p>Track solved questions and store PDF notes online.</p>
 </header>
 
-<section class="stats">
+<main class="container">
+  <section class="panel">
+    <h2>Add Solved Question</h2>
+    <form id="questionForm" class="form-grid">
+      <input name="title" placeholder="Question title" required>
+      <input name="platform" placeholder="Platform (LeetCode/GFG/etc.)" required>
+      <input name="topic" placeholder="Topic (Array, DP, Graph...)" required>
+      <select name="difficulty" required>
+        <option value="">Difficulty</option>
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+      <input type="url" name="url" placeholder="Question URL (optional)">
+      <input type="date" name="solvedAt">
+      <textarea name="notes" placeholder="What did you learn?"></textarea>
+      <button type="submit">Save Question</button>
+    </form>
+  </section>
 
-  <div class="card">
-    <h3>📦 Arrays</h3>
-    <div class="counter" id="arrays-count">0</div>
-    <div class="bar"><div id="arrays-bar"></div></div>
-  </div>
+  <section class="panel">
+    <h2>Progress</h2>
+    <div id="stats" class="stats">Loading stats...</div>
+    <div id="questionsList" class="list"></div>
+  </section>
 
-  <div class="card">
-    <h3>🌳 Trees</h3>
-    <div class="counter" id="trees-count">0</div>
-    <div class="bar"><div id="trees-bar"></div></div>
-  </div>
+  <section class="panel">
+    <h2>Upload PDF Notes</h2>
+    <form id="noteForm" class="form-grid" enctype="multipart/form-data">
+      <input name="title" placeholder="Note title" required>
+      <input type="file" name="pdf" accept="application/pdf" required>
+      <button type="submit">Upload PDF</button>
+    </form>
 
-  <div class="card">
-    <h3>🕸 Graphs</h3>
-    <div class="counter" id="graphs-count">0</div>
-    <div class="bar"><div id="graphs-bar"></div></div>
-  </div>
-
-</section>
-
-<section class="github">
-  ⭐ GitHub Repos: <span id="repoCount">Loading...</span>
-</section>
-
-<section class="actions">
-  <button onclick="copyText()">Copy Portfolio Info</button>
-</section>
+    <div id="notesList" class="list"></div>
+  </section>
+</main>
 
 <footer>
-  Built by Sachin Sharma ⚡ | FAANG Preparation Journey
+  Deploy on Render/Railway/VPS to make this website visible on internet.
 </footer>
 
 <script src="js/script.js"></script>
